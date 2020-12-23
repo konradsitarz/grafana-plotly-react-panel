@@ -9,7 +9,6 @@ interface Settings {
 interface Props extends StandardEditorProps<string, Settings> {}
 
 export const FieldSelectEditor: React.FC<Props> = ({ item, value, onChange, context }) => {
-  debugger;
   if (context.data && context.data.length > 0) {
     const options = context.data
       .flatMap(frame => frame.fields)

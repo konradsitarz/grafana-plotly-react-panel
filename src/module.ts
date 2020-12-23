@@ -1,9 +1,20 @@
-import { PanelPlugin } from '@grafana/data';
+import { PanelPlugin, FieldConfigProperty } from '@grafana/data';
 import { SimpleOptions } from './types';
 import { SimplePanel } from './SimplePanel';
 import { FieldSelectEditor } from 'FieldSelectEditor';
 
-export const plugin = new PanelPlugin<SimpleOptions>(SimplePanel).setPanelOptions(builder => {
+
+export const plugin = new PanelPlugin<SimpleOptions>(SimplePanel)
+.useFieldConfig({
+  standardOptions: [
+    FieldConfigProperty.Decimals,
+    FieldConfigProperty.Unit,
+    FieldConfigProperty.Mappings,
+    FieldConfigProperty.Color,
+    FieldConfigProperty.Thresholds,
+  ],
+})
+.setPanelOptions(builder => {
   return builder
     .addTextInput({
       path: 'title',
@@ -12,23 +23,27 @@ export const plugin = new PanelPlugin<SimpleOptions>(SimplePanel).setPanelOption
       defaultValue: 'New Plotly plot',
     })
     .addCustomEditor({
-      id: 'xCol',
+      id: 'x',
       path: 'x',
       name: 'X column',
       description: 'Column to show on the X axis',
       category: ['Dimensions'],
       editor: FieldSelectEditor
     })
-    .addTextInput({
+    .addCustomEditor({
+      id: 'y',
       path: 'y',
       name: 'Y column',
       description: 'Column to show on the Y axis',
-      defaultValue: '',
+      category: ['Dimensions'],
+      editor: FieldSelectEditor
     })
-    .addTextInput({
+    .addCustomEditor({
+      id: 'groupby',
       path: 'groupby',
       name: 'Group by',
-      description: 'Column to group data',
-      defaultValue: '',
+      description: 'Column to group by',
+      category: ['Dimensions'],
+      editor: FieldSelectEditor
     })
 });
