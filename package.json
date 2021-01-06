@@ -25,7 +25,9 @@
     "node": ">=12 <13"
   },
   "dependencies": {
+    "@types/lodash": "^4.14.167",
     "@types/react-plotly.js": "^2.2.4",
+    "lodash": "^4.17.20",
     "plotly.js": "^1.58.2",
     "react-plotly.js": "^2.5.1"
   }
